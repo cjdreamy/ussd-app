@@ -1,9 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const port = process.env.PORT || 3000;
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.get('/api/test', (req, res) => {
+    res.send('Test Request');
+});
 
 app.post('/ussd', (req, res) => {
     // Read the variables sent via POST from our API
@@ -39,4 +43,8 @@ app.post('/ussd', (req, res) => {
     // Send the response back to the API
     res.set('Content-Type: text/plain');
     res.send(response);
+});
+
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
 });
